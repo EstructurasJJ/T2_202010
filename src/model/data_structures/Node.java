@@ -2,6 +2,8 @@ package model.data_structures;
 
 import model.logic.Comparendo;
 
+//TODO Ambos
+
 public class Node <T>
 {
 	Comparendo viejoCompa;

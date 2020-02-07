@@ -13,33 +13,40 @@ import com.google.gson.JsonSyntaxException;
 
 
 import model.data_structures.ListaEnlazadaSimple;
+import model.data_structures.ListaEnlazadaStack;
 import model.data_structures.Node;
 
-
+//TODO Ambos
 
 public class Modelo 
 {
-
-	private ListaEnlazadaSimple<Comparendo> datos = new ListaEnlazadaSimple<>();
 	private String parteDelComparendo; 
 	private Comparendo compaAgregar;
+	
+	//TODO Bobby
+	private ListaEnlazadaStack<Comparendo> stack = new ListaEnlazadaStack<>();
 
 	public Modelo()
 	{
-		datos = new ListaEnlazadaSimple<Comparendo>();
 		parteDelComparendo = "";
+		
+		//TODO Bobby
+		stack = new ListaEnlazadaStack<Comparendo>();
 	}
 	
-	public ListaEnlazadaSimple<Comparendo> darDatos()
+	//TODO Bobby
+	public ListaEnlazadaStack<Comparendo> darDatos()
 	{
-		return datos;
+		return stack;
 	}
 	
+	//TODO Bobby
 	public int darTamano()
 	{
-		return datos.darTamaño();
+		return stack.darTamaño();
 	}
-
+	
+	//TODO Ambos
 	public void leerGeoJson(String pRuta) 
 	{	
         JsonParser parser = new JsonParser();
@@ -58,7 +65,8 @@ public class Modelo
         dumpJSONElement(datos);
 
 	}
-
+	
+	//TODO Ambos
 	private void dumpJSONElement(JsonElement elemento) 
 	{
 		
@@ -143,7 +151,10 @@ public class Modelo
 				//System.out.println(valor);
 				//System.out.println("###______________###");
 				
-				datos.agregarAlComienzo(compaAgregar);;
+				//TODO Bobby
+				stack.push(compaAgregar);
+				
+				
 				parteDelComparendo = "";
 				compaAgregar = null;
 				
@@ -161,7 +172,8 @@ public class Modelo
 	    }
 		
 	}
-
+	
+	//TODO Ambos
 	public void componentesDelComparendo(String palabra)
 	{
 		if (palabra.equals("OBJECTID"))
@@ -198,23 +210,24 @@ public class Modelo
 		}
 	}
 	
-	
-	public Comparendo buscar (int id)
+	//TODO Bobby
+	public ListaEnlazadaStack<Comparendo> ultimosNporInfraccion(int N, String infra)
 	{
-		Node<Comparendo> nodo = (Node<Comparendo>) datos.devolverPrimerElemento();
-		Node<Comparendo> buscado = null;
+		ListaEnlazadaStack<Comparendo> correctos = new ListaEnlazadaStack<>();
+		int contador = 0;
 		
-		while (nodo != null && nodo.darInfoDelComparendo().darObjectid() != id)
+		while (stack.darTamaño()>0 && contador != N)
 		{
-			nodo = nodo.darSiguiente();
-		}
-		if (nodo != null)
-		{
-			buscado = nodo;
+			Comparendo actual = stack.pop();
+			
+			if (actual.darInfraccion().equals(infra))
+			{
+				correctos.push(actual);
+				contador++;
+			}
 		}
 		
-		return buscado.darInfoDelComparendo();
-	}
-	
+		return correctos;
+	}	
 
 }

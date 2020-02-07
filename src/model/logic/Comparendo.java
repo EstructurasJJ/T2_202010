@@ -2,6 +2,8 @@ package model.logic;
 
 import com.sun.xml.internal.bind.v2.schemagen.xmlschema.LocalAttribute;
 
+//TODO Ambos
+
 public class Comparendo 
 {	
 	private int OBJECTID;

@@ -2,6 +2,7 @@ package controller;
 
 import java.util.Scanner;
 
+import model.data_structures.ListaEnlazadaStack;
 import model.logic.Comparendo;
 import model.logic.Modelo;
 import view.View;
@@ -40,21 +41,41 @@ public class Controller {
 				break;
 
 			case 2:
-				view.printMessage("--------- \nDar OBJECTID a buscar: ");
+				
+				//TODO Bobby
+				
+				view.printMessage("--------- \nDar cantidad de infracciones a reportar: ");
 				dato = lector.next();
-
-				int i = Integer.parseInt(dato);
-
-				Comparendo x = modelo.buscar(i);
-
-				view.printMessage("###___________________###");
-				view.printMessage("Object id: " + x.darObjectid());
-				view.printMessage("Fecha: " + x.darFecha_Hora());
-				view.printMessage("Infraccion: " + x.darInfraccion());
-				view.printMessage("Clase del Vehiculo: " + x.darClase_Vehi());
-				view.printMessage("Tipo de servicio: " + x.darTipo_Servicio());
-				view.printMessage("Localidad: " + x.darLocalidad());
-				view.printMessage("###___________________###");
+				int N = Integer.parseInt(dato);
+				
+				view.printMessage("--------- \nDar la infracciones a reportar: ");
+				dato = lector.next();
+				
+				ListaEnlazadaStack<Comparendo> infraReturn = modelo.ultimosNporInfraccion(N, dato);
+				
+				System.out.println(infraReturn.darTamaño());
+				int cantidad = infraReturn.darTamaño();
+				
+				if(cantidad < N)
+				{
+					System.out.println("Los únicos datos encontrados fueron:");
+					
+					for (int i = 0; i < cantidad; i++)
+					{
+						Comparendo actual = infraReturn.pop();
+						System.out.println("Los datos del comparendo son: " + "Object id: " + actual.darObjectid() + " Fecha: " + actual.darFecha_Hora() + " Infraccion: " + actual.darInfraccion() + " Clase del Vehiculo: " + actual.darClase_Vehi() + " Tipo de servicio: " + actual.darTipo_Servicio() + " Localidad: " + actual.darLocalidad());
+					}
+				}
+				else
+				{
+					System.out.println("Los datos solicitados son:");
+					
+					for (int i = 0; i < cantidad; i++)
+					{
+						Comparendo actual = infraReturn.pop();
+						System.out.println("Los datos del comparendo son: " + "Object id: " + actual.darObjectid() + " Fecha: " + actual.darFecha_Hora() + " Infraccion: " + actual.darInfraccion() + " Clase del Vehiculo: " + actual.darClase_Vehi() + " Tipo de servicio: " + actual.darTipo_Servicio() + " Localidad: " + actual.darLocalidad());
+					}
+				}
 
 				break;
 
