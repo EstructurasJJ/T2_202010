@@ -73,6 +73,19 @@ public class ListaEnlazadaStack <T> implements IListaEnlazadaStack <T>
 		}
 	}
 	
+	//Esta vacia
+	public boolean isEmpty()
+	{
+		boolean vacia = true;
+		
+		if (topePila != null)
+		{
+			vacia = false;
+		}
+		
+		return vacia; 
+	}
+	
 	//No lo uso
 	
 	public Iterator<T> iterator() {

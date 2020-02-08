@@ -1,6 +1,8 @@
 package test.logic;
 
 import static org.junit.Assert.*;
+
+import model.data_structures.ListaEnlazadaStack;
 import model.logic.Modelo;
 
 import org.junit.Before;
@@ -32,28 +34,23 @@ public class TestModelo {
 	}
 	
 	@Test
-	public void testBuscar() 
+	public void testDarNinfracciones()
 	{
-		assertTrue(conexion.buscar(29042)!=null);
-		assertTrue(conexion.buscar(509329)!=null);
-		assertTrue(conexion.buscar(519553)!=null);
-		assertTrue(conexion.buscar(176695)!=null);
-		assertTrue(conexion.buscar(395846)!=null);
-		assertTrue(conexion.buscar(46500)!=null);
-		assertTrue(conexion.buscar(58338)!=null);
-		assertTrue(conexion.buscar(184177)!=null);
-		assertTrue(conexion.buscar(395366)!=null);
-		assertTrue(conexion.buscar(444949)!=null);
-		assertTrue(conexion.buscar(264952)!=null);
-		assertTrue(conexion.buscar(174761)!=null);
-		assertTrue(conexion.buscar(56712)!=null);
-		assertTrue(conexion.buscar(480983)!=null);
-		assertTrue(conexion.buscar(361767)!=null);
-		assertTrue(conexion.buscar(299457)!=null);
-		assertTrue(conexion.buscar(467527)!=null);
-		assertTrue(conexion.buscar(246062)!=null);
-		assertTrue(conexion.buscar(224494)!=null);
-		assertTrue(conexion.buscar(209146)!=null);
+		ListaEnlazadaStack lista = new ListaEnlazadaStack<>();
+		
+		lista = conexion.ultimosNporInfraccion(3, "C02");
+		assertEquals(3, lista.darTamaño());
+		
+		lista = conexion.ultimosNporInfraccion(50, "C02");
+		assertEquals(6, lista.darTamaño());
+		conexion.leerGeoJson(Controller.JUEGUEMOS);
+		
+		lista = conexion.ultimosNporInfraccion(2, "B02");
+		assertEquals(2, lista.darTamaño());
+		conexion.leerGeoJson(Controller.JUEGUEMOS);
+		
+		lista = conexion.ultimosNporInfraccion(2, "HOLA");
+		assertEquals(0, lista.darTamaño());
 	}
 
 }

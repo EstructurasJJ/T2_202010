@@ -9,4 +9,6 @@ public interface IListaEnlazadaStack <T> extends Iterable <T>
 	
 	public void push (T elemento);
 	public T pop ();
+	
+	public boolean isEmpty();
 }
