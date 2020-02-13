@@ -39,7 +39,7 @@ public class TestListaEnlazadaSimple
 	public void testListaSimpleCarga()
 	{
 		assertTrue(conexion.darDatos()!=null);
-		assertEquals(20, conexion.darTamano());
+		assertEquals(20, conexion.darTamanoStack());
 	}
 	
 	@Test

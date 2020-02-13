@@ -30,7 +30,7 @@ public class TestModelo {
 	@Test
 	public void testDarTamano() 
 	{
-		assertEquals(20, conexion.darTamano());
+		assertEquals(20, conexion.darTamanoStack());
 	}
 	
 	@Test

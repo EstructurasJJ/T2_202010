@@ -11,7 +11,7 @@ import com.google.gson.JsonParser;
 import com.google.gson.JsonPrimitive;
 import com.google.gson.JsonSyntaxException;
 
-
+import model.data_structures.ListaEnlazadaQueue;
 import model.data_structures.ListaEnlazadaSimple;
 import model.data_structures.ListaEnlazadaStack;
 import model.data_structures.Node;
@@ -25,6 +25,7 @@ public class Modelo
 	
 	//TODO Bobby
 	private ListaEnlazadaStack<Comparendo> stack = new ListaEnlazadaStack<>();
+	private ListaEnlazadaQueue<Comparendo> booty = new ListaEnlazadaQueue<Comparendo>();
 
 	public Modelo()
 	{
@@ -32,6 +33,7 @@ public class Modelo
 		
 		//TODO Bobby
 		stack = new ListaEnlazadaStack<Comparendo>();
+		booty = new ListaEnlazadaQueue<Comparendo>();
 	}
 	
 	//TODO Bobby
@@ -40,10 +42,20 @@ public class Modelo
 		return stack;
 	}
 	
+	public ListaEnlazadaQueue<Comparendo> darElBooty()
+	{
+		return booty;
+	}
+	
 	//TODO Bobby
-	public int darTamano()
+	public int darTamanoStack()
 	{
 		return stack.darTamaño();
+	}
+	
+	public int darTamanioBooty()
+	{
+		return booty.darTamanio();
 	}
 	
 	//TODO Ambos
@@ -151,8 +163,9 @@ public class Modelo
 				//System.out.println(valor);
 				//System.out.println("###______________###");
 				
-				//TODO Bobby
+				
 				stack.push(compaAgregar);
+				booty.enqueue(compaAgregar);
 				
 				
 				parteDelComparendo = "";
@@ -229,5 +242,51 @@ public class Modelo
 		
 		return correctos;
 	}	
+	
+	public ListaEnlazadaQueue<Comparendo> darMayorCluster()
+	{
+		ListaEnlazadaQueue<Comparendo> auxiliar= new ListaEnlazadaQueue<Comparendo>();
+		ListaEnlazadaQueue<Comparendo> definitiva= new ListaEnlazadaQueue<Comparendo>();
+		Node<Comparendo> actual = booty.darPrimerElemento();
+		
+		while(actual.darSiguiente() != null)
+		{
+			if (auxiliar.emptyList())
+			{
+				auxiliar.enqueue(actual.darInfoDelComparendo());
+			}	
+			
+			
+			String infActual=actual.darInfoDelComparendo().darInfraccion();
+			String infSig = actual.darSiguiente().darInfoDelComparendo().darInfraccion();
+			
+			if(infActual.equals(infSig))
+			{
+				auxiliar.enqueue(actual.darSiguiente().darInfoDelComparendo());
+			}
+			else
+			{
+				int tamAux=auxiliar.darTamanio();
+				
+				if (tamAux>definitiva.darTamanio())
+				{
+						definitiva=new ListaEnlazadaQueue<Comparendo>();
+						definitiva=auxiliar;
+						
+				}
+				
+				auxiliar=new ListaEnlazadaQueue<Comparendo>();
+			}
+			actual=actual.darSiguiente();
+			booty.dequeue();
+		}
 
+		
+		return definitiva;
+	}
+	
+
+	//TODO Juanjo
+	
+	
 }

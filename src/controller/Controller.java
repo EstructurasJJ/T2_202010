@@ -2,6 +2,9 @@ package controller;
 
 import java.util.Scanner;
 
+
+
+import model.data_structures.ListaEnlazadaQueue;
 import model.data_structures.ListaEnlazadaStack;
 import model.logic.Comparendo;
 import model.logic.Modelo;
@@ -37,10 +40,28 @@ public class Controller {
 			case 1:
 				modelo.leerGeoJson(RUTAGEOJASON);
 				view.printMessage("Archivo GeoJSon Cargado");
-				view.printMessage("Numero actual de comparendos " + modelo.darTamano() + "\n---------");						
+				view.printMessage("Numero actual de comparendos " + modelo.darTamanoStack() + "\n---------");						
 				break;
 
 			case 2:
+				
+				ListaEnlazadaQueue <Comparendo> resultado=modelo.darMayorCluster();
+				String mensaje ="La infracción más repetida fue: " + resultado.darPrimerElemento().darInfoDelComparendo().darInfraccion()+", con un total de: "+resultado.darTamanio()+".";
+				System.out.println(mensaje);
+				Comparendo a;
+				
+				while(resultado.darTamanio()>0)
+				{
+					a=resultado.dequeue();
+					System.out.println(a.darInfraccion()+"\n"+a.darObjectid()+"\n"+a.darFecha_Hora()+"\n"+a.darClase_Vehi()+"\n"+a.darTipo_Servicio()+"\n"+a.darLocalidad());
+					System.out.println("-----------------------------------------------------------------");
+				}
+				
+				view.printMessage(mensaje);
+				
+				break;
+				
+			case 3:
 				
 				//TODO Bobby
 				
@@ -79,14 +100,14 @@ public class Controller {
 
 				break;
 
-			case 3:
+			case 4:
 				view.printMessage("--------- \n Hasta pronto !! \n---------"); 
 				lector.close();
 				fin = true;
 				break;	
 
 			default: 
-				view.printMessage("--------- \n Opcion Invalida !! \n---------");
+				view.printMessage("--------- \n Opción Invalida !! \n---------");
 				break;
 			}
 		}

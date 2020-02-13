@@ -38,7 +38,7 @@ public class TestListaEnlazadaStack
 	public void testListaStackCarga()
 	{
 		assertTrue(conexion.darDatos()!=null);
-		assertEquals(20, conexion.darTamano());
+		assertEquals(20, conexion.darTamanoStack());
 	}
 	
 	@Test
